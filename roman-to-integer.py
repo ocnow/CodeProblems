@@ -1,10 +1,10 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
         total = 0
-        slen = len(s)
+        #slen = len(s)
         s=s + "Z"
         i = 0
-        while i < slen:
+        while i < len(s):
             if s[i] == 'M':
                 total = total + 1000
             elif s[i] == 'C' and s[i+1] == 'M':
