@@ -1,3 +1,4 @@
+0/5
 class Solution:
     def threeSumClosest(self, nums: list[int], target: int) -> int:
         
@@ -5,9 +6,9 @@ class Solution:
         res = 0
         lenn = len(nums)
         prev_diff = 10000001
-        ans = 0
+        #ans = 0
 
-        print(nums)
+        #print(nums)
         for i in range(lenn):
 
             if i>0 and nums[i] == nums[i-1]:
