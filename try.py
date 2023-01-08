@@ -1,4 +1,5 @@
-a = [1,0]
-b = [0,1]
+a = 4
 
-print([a[i]|b[i] for i in range(2)])
+b = [1,2]
+
+print([a] + b)
