@@ -1,56 +1,44 @@
 class Solution:
     def search(self, nums: list[int], target: int) -> int:
-        #check if greater than start -
-        #if it is - considering ascending array then quicksort
-        #it it is less - considering descending then quick
+        i = 0
+        j = len(nums) - 1
+        start = nums[0]
 
-        first_ele = nums[0]
-        #check for perfect ascending 
-        if target > first_ele:
-            i = 0
-            j = len(nums) - 1
-
-            while j >= i:
-                print("i,j"+str((i,j)))
-                hlf = (i+j)//2
-                print("half:" + str(hlf))
-                if nums[hlf] == target:
-                    return hlf
-
-                elif target < nums[hlf]:
-                    j = hlf - 1
-
-                elif nums[hlf] > first_ele and target > nums[hlf]:
-                    i = hlf + 1
-
-                elif nums[hlf] < first_ele:
-                    j = hlf - 1
-
-        elif target < first_ele:
-            i = 0 
-            j = len(nums) - 1
-            while j >= i:
-                print("i,j"+str((i,j)))
-                hlf = (i+j)//2
-                print("half:" + str(hlf))
-                if nums[hlf] == target:
-                    return hlf
-                
-                
-                elif nums[hlf] > first_ele:
-                    i = hlf + 1
-                
-                elif nums[hlf] < first_ele and target < nums[hlf]:
-                    j = hlf - 1
-                
-                elif nums[hlf] < first_ele and target > nums[hlf]:
-                    i = hlf + 1
-
-        
-        elif target == first_ele:
+        if target == start:
             return 0
 
-        return -1
+        while j >= i:
+            
+            hlf = (i+j)//2
+            print("i,j"+str((i,j)))
+            print("hlf"+str(hlf))
+            if target == nums[hlf]:
+                return hlf
+            
+
+            if nums[hlf] >= start:
+                #logic
+                if target > nums[hlf]:
+                    i = hlf + 1
+                
+                elif target < nums[hlf] and target > start:
+                    j = hlf - 1
+                
+                elif target < nums[hlf] and target < start:
+                    i = hlf + 1
+
+            elif nums[hlf] < start:
+                #logic
+                if target < nums[hlf]:
+                    j = hlf - 1
+                
+                elif target > nums[hlf] and target > start:
+                    j = hlf - 1
+                
+                elif target > nums[hlf] and target < start:
+                    i = hlf + 1
+
+        return - 1
 
 S1 = Solution()
-print(S1.search([4,5],7))
+print(S1.search([1],0))
