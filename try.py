@@ -1,30 +1,44 @@
 class Solution:
-    def nextPermutation(self, nums: list[int]) -> None:
-        arr,i = self.reverseArray(nums,len(nums)-1)
-        return arr
+    def search(self, nums: list[int], target: int) -> int:
+        i = 0
+        j = len(nums) - 1
+        start = nums[0]
 
-    def reverseArray(self,nums,lastIndex):
-        i = lastIndex
-        while i > 0 and nums[i-1] > nums[i]:
-            i = i - 1
+        if target == start:
+            return 0
 
-        print("current i"+str(i))
-        l = (lastIndex - i)+1
-        print(l)
-        for j in range(i,l // 2):
-            nums[j], nums[l - j - 1] = nums[l - j - 1], nums[j]
-        
-        return (nums,i)
+        while j >= i:
+            
+            hlf = (i+j)//2
+            print("i,j"+str((i,j)))
+            print("hlf"+str(hlf))
+            if target == nums[hlf]:
+                return hlf
+            
 
-    def reverseArray1(self,nums,lastIndex):
-        i = lastIndex - 1
-        print(i)
-        nums = nums[-1 * i:]
-        return (nums,i)
-    
-        
+            if nums[hlf] >= start:
+                #logic
+                if target > nums[hlf]:
+                    i = hlf + 1
+                
+                elif target < nums[hlf] and target > start:
+                    j = hlf - 1
+                
+                elif target < nums[hlf] and target < start:
+                    i = hlf + 1
 
+            elif nums[hlf] < start:
+                #logic
+                if target < nums[hlf]:
+                    j = hlf - 1
+                
+                elif target > nums[hlf] and target > start:
+                    j = hlf - 1
+                
+                elif target > nums[hlf] and target < start:
+                    i = hlf + 1
 
-ar1 = [3,8,7,6,2]
+        return - 1
+
 S1 = Solution()
-print(S1.reverseArray1(ar1,len(ar1)-1))
+print(S1.search([1],0))
