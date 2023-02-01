@@ -1,14 +1,19 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+from typing import Optional,ListNode
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if head == None:
+            return None
         #go till k
         t = head
-        for i in range(k):
+        le = 0
+        while k > 0:
             t = t.next
+            k = k - 1
+            le = le + 1
+            if t == None:
+                k = k % le
+                t = head
+            
         
         #print("t at:"+str(t.val))
         #backupk = t
@@ -23,6 +28,8 @@ class Solution:
 
         #print("p valt"+str(p.val))
         q = p.next
+        if q == None:
+            return head
         p.next = None
         backupq = q
         #print("q val"+str(q.val))
