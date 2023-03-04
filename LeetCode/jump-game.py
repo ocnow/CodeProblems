@@ -1,5 +1,5 @@
- class Solution:
-    def canJump(self, nums: List[int]) -> bool:
+class Solution:
+    def canJump(self, nums: list[int]) -> bool:
         le = len(nums)
         current = 0
         farthest = 0
