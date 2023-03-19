@@ -1,39 +1,35 @@
-def giveRem(num):
-    b = [1,2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072, 262144, 524288, 1048576, 2097152, 4194304, 8388608, 16777216, 33554432, 67108864, 134217728]
-    a = [1,3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049, 177147, 531441, 1594323, 4782969, 14348907, 43046721, 129140163]
-
-    ai = 0
-    bj = 0
-
-    while a[ai+1] <= p:
-        ai +=1
-
-    rema = p - a[ai]
-    if rema == 0:
-        return ai,0
+pow3s = [1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049, 177147, 531441, 1594323, 4782969, 14348907, 43046721]
+def getAns(n):
+    #print(len(pow3s))
+    k = 0
+    while k < 17 and pow3s[k] <= n:
+        k+=1
     
-    while b[bj+1] <= p:
-        bj +=1
-    
-    remb = p - b[bj]
+    #n < 10^8 so total possible possibilities are 2**17.
+    total_possibilities = 2**k - 1
+    overall_min_1s = 100
+    for pos in range(total_possibilities):
 
-    if remb == 0:
-        return bj,0
+        current_1s = 0
+        #this variable will represent how much binary contribution needed, 
+        # as remaining contri  is coming from 3s
+        binary_input_needed = n
+        for j in range(17):
+            if pos&(1<<j):
+                binary_input_needed-=pow3s[j]
+                current_1s+=1
+                if binary_input_needed < 0:
+                    break
+        
+        #print("binary_input_needed_was"+str(binary_input_needed)+"and cur 1s"+str(current_1s))
+        if binary_input_needed >= 0:
+            current_1s+=str(bin(binary_input_needed)).count('1')
+            overall_min_1s = min(overall_min_1s,current_1s)
+            #print("now"+str(overall_min_1s))
     
-    if rema < remb:
-        return ai,rema
-    else:
-        return bj,remb
+    return overall_min_1s
 
-T = int(input())
-for tes in range(T):
-    p = int(input())
-    sumi = 0
-    while True:
-        k,rem = giveRem(p)
-        print((k,rem))
-        sumi+=1
-        p = rem
-        if p == 0:
-            break
-    print(sumi)
+t = int(input())
+for _ in range(t):
+    n = int(input())
+    print(getAns(n))
